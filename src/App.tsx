@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { Home, BarChart3, Settings } from "lucide-react";
 
-// Define tus categorías con iconos (puedes cambiar o agregar)
+// ✅ Agregamos la categoría Educación aquí
 const expenseCategories = [
   { name: "Comida", icon: "🍔" },
   { name: "Transporte", icon: "🚗" },
   { name: "Salud", icon: "💊" },
   { name: "Entretenimiento", icon: "🎬" },
+  { name: "Educación", icon: "📚" }, // NUEVA CATEGORÍA
 ];
 
 const incomeCategories = [
@@ -27,11 +28,9 @@ interface Transaction {
 }
 
 const ZombieFinanceApp = () => {
-  // Estado general
   const [activeTab, setActiveTab] = useState<"home" | "stats" | "settings">("home");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  // Nuevo movimiento en proceso
   const [newTransaction, setNewTransaction] = useState<Transaction>({
     id: 0,
     type: "expense",
@@ -40,10 +39,8 @@ const ZombieFinanceApp = () => {
     description: "",
   });
 
-  // Control para mostrar modal de agregar transacción
   const [showAddTransaction, setShowAddTransaction] = useState(false);
 
-  // Función para agregar nueva transacción
   const addTransaction = () => {
     if (newTransaction.amount <= 0) {
       alert("Ingresa un monto válido");
@@ -54,7 +51,6 @@ const ZombieFinanceApp = () => {
       { ...newTransaction, id: Date.now() },
     ]);
     setShowAddTransaction(false);
-    // Reset newTransaction a valores iniciales
     setNewTransaction({
       id: 0,
       type: "expense",
@@ -66,12 +62,10 @@ const ZombieFinanceApp = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-      {/* Header */}
       <header className="p-4 border-b border-purple-700 text-center font-bold text-xl">
         Zombie Finance
       </header>
 
-      {/* Contenido principal */}
       <main className="flex-1 p-4 overflow-auto">
         {activeTab === "home" && (
           <>
@@ -90,9 +84,7 @@ const ZombieFinanceApp = () => {
                 <div
                   key={t.id}
                   className={`p-3 mb-2 rounded-lg ${
-                    t.type === "income"
-                      ? "bg-green-700"
-                      : "bg-red-700"
+                    t.type === "income" ? "bg-green-700" : "bg-red-700"
                   }`}
                 >
                   <div className="flex justify-between items-center">
@@ -118,7 +110,6 @@ const ZombieFinanceApp = () => {
         )}
       </main>
 
-      {/* Modal para agregar transacción */}
       {showAddTransaction && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
           <div className="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-purple-500/40">
@@ -214,7 +205,6 @@ const ZombieFinanceApp = () => {
         </div>
       )}
 
-      {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-purple-500/20">
         <div className="max-w-md mx-auto flex justify-around p-4">
           <button
